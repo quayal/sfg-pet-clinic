@@ -1,2 +1,2 @@
 # sfg-pet-clinic
-Training repo for SFG traininf
+Training repo for SFG training
