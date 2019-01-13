@@ -1,11 +1,11 @@
 package com.quayal.sfgpetclinic.services.map;
 
 import com.quayal.sfgpetclinic.model.Vet;
-import com.quayal.sfgpetclinic.services.CrudService;
+import com.quayal.sfgpetclinic.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
 
 	@Override
 	public Set<Vet> findAll() {
