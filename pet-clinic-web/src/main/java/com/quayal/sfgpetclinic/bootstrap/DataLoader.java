@@ -7,6 +7,8 @@ import com.quayal.sfgpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -19,7 +21,7 @@ public class DataLoader implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 
 		Owner owner1 = new Owner();
 		owner1.setFirstName("Michael");
