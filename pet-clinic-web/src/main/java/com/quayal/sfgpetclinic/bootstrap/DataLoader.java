@@ -10,6 +10,8 @@ import com.quayal.sfgpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -24,7 +26,7 @@ public class DataLoader implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) {
+	public void run(String... args) throws Exception {
 
 		PetType dog = new PetType();
 		dog.setName("Dog");
@@ -36,17 +38,35 @@ public class DataLoader implements CommandLineRunner {
 
 		PetType savedCatType = petTypeService.save(cat);
 
-		Owner owner1 = new Owner();
-		owner1.setFirstName("Michael");
-		owner1.setLastName("Weston");
+		Owner mike = new Owner();
+		mike.setFirstName("Michael");
+		mike.setLastName("Weston");
+		mike.setAddress("123 Bickerel");
+		mike.setCity("Miami");
+		mike.setTelephone("12345678");
 
-		ownerService.save(owner1);
+		Pet mikesPet = new Pet();
+		mikesPet.setPetType(savedDogType);
+		mikesPet.setOwner(mike);
+		mikesPet.setBirthDate(LocalDate.now());
+		mikesPet.setName("Laika");
+		mike.getPets().add(mikesPet);
 
-		Owner owner2 = new Owner();
-		owner2.setFirstName("Fionna");
-		owner2.setLastName("Glenanne");
 
-		ownerService.save(owner2);
+		ownerService.save(mike);
+
+		Owner fiona = new Owner();
+		fiona.setFirstName("Fionna");
+		fiona.setLastName("Glenanne");
+		fiona.setAddress("123 Bickerel");
+		fiona.setCity("Miami");
+		fiona.setTelephone("12345678");
+
+		Pet fionnasPet = new Pet();
+		fionnasPet.setPetType(savedCatType);
+		fionnasPet.setOwner(fiona);
+
+		ownerService.save(fiona);
 
 		System.out.println("Loaded owners...");
 
