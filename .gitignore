@@ -40,6 +40,8 @@ hs_err_pid*
 /log/
 /target/
 
+pet-clinic-data/target/
+pet-clinic-web/target/
 
 ######################
 # Maven Wrapper
