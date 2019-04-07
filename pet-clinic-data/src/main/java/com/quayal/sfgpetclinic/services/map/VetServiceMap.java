@@ -4,11 +4,13 @@ import com.quayal.sfgpetclinic.model.Speciality;
 import com.quayal.sfgpetclinic.model.Vet;
 import com.quayal.sfgpetclinic.services.SpecialityService;
 import com.quayal.sfgpetclinic.services.VetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
 
 	private SpecialityService specialityService;
@@ -45,9 +47,7 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
 
 	private Vet saveSpecialities(Vet vet) {
 		if (!vet.getSpecialities().isEmpty()) {
-			vet.getSpecialities().forEach(speciality -> {
-				vet.getSpecialities().add(saveSpeciality(speciality));
-			});
+			vet.getSpecialities().forEach(speciality -> vet.getSpecialities().add(saveSpeciality(speciality)));
 		}
 		return vet;
 	}
