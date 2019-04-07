@@ -1,10 +1,7 @@
 package com.quayal.sfgpetclinic.bootstrap;
 
 import com.quayal.sfgpetclinic.model.*;
-import com.quayal.sfgpetclinic.services.OwnerService;
-import com.quayal.sfgpetclinic.services.PetTypeService;
-import com.quayal.sfgpetclinic.services.SpecialityService;
-import com.quayal.sfgpetclinic.services.VetService;
+import com.quayal.sfgpetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,16 +14,18 @@ public class DataLoader implements CommandLineRunner {
 	private final VetService vetService;
 	private final PetTypeService petTypeService;
 	private final SpecialityService specialityService;
+	private final VisitService visitService;
 
-	public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+	public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
 		this.ownerService = ownerService;
 		this.vetService = vetService;
 		this.petTypeService = petTypeService;
 		this.specialityService = specialityService;
+		this.visitService = visitService;
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 
 		if (petTypeService.findAll().isEmpty()) {
 			loadData();
@@ -51,12 +50,12 @@ public class DataLoader implements CommandLineRunner {
 		mike.setCity("Miami");
 		mike.setTelephone("12345678");
 
-		Pet mikesPet = new Pet();
-		mikesPet.setPetType(savedDogType);
-		mikesPet.setOwner(mike);
-		mikesPet.setBirthDate(LocalDate.now());
-		mikesPet.setName("Laika");
-		mike.getPets().add(mikesPet);
+		Pet laika = new Pet();
+		laika.setPetType(savedDogType);
+		laika.setOwner(mike);
+		laika.setBirthDate(LocalDate.now());
+		laika.setName("Laika");
+		mike.getPets().add(laika);
 
 
 		ownerService.save(mike);
@@ -68,11 +67,21 @@ public class DataLoader implements CommandLineRunner {
 		fiona.setCity("Miami");
 		fiona.setTelephone("12345678");
 
-		Pet fionnasPet = new Pet();
-		fionnasPet.setPetType(savedCatType);
-		fionnasPet.setOwner(fiona);
+		Pet monster = new Pet();
+		monster.setPetType(savedCatType);
+		monster.setOwner(fiona);
+		monster.setBirthDate(LocalDate.now());
+		monster.setName("Monster");
+		fiona.getPets().add(monster);
 
 		ownerService.save(fiona);
+
+		Visit monstersVisit = new Visit();
+		monstersVisit.setPet(monster);
+		monstersVisit.setDate(LocalDate.now());
+		monstersVisit.setDescription("Sneezy kitty");
+
+		visitService.save(monstersVisit);
 
 		System.out.println("Loaded owners...");
 
@@ -103,5 +112,7 @@ public class DataLoader implements CommandLineRunner {
 		vetService.save(vet2);
 
 		System.out.println("Loaded vets...");
+
+
 	}
 }

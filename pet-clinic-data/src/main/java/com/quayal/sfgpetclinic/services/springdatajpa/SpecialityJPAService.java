@@ -13,7 +13,7 @@ import java.util.Set;
 @Profile("springdatajpa")
 public class SpecialityJPAService implements SpecialityService {
 
-	private SpecialityRepository specialityRepository;
+	private final SpecialityRepository specialityRepository;
 
 	public SpecialityJPAService(SpecialityRepository specialityRepository) {
 		this.specialityRepository = specialityRepository;
